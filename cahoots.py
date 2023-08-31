@@ -18,7 +18,8 @@ class Game:
 
         self.id = 0
 
-        self.v = Visuals(outdir)
+        if outdir:
+            self.v = Visuals(outdir)
 
     def reset(self):
         # Reset players turns and flush the played card stacks
