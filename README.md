@@ -2,21 +2,26 @@
 
 This repository contains classes to experiment with [reinforcement learning](https://en.wikipedia.org/wiki/Reinforcement_learning) (RL) for the card game [Cahoots](https://www.whitegoblingames.com/game/cahoots/) using [Gymnasium](https://gymnasium.farama.org) as RL training framework and [pygame](https://www.pygame.org/news) for visualising the game.
 
-With the software included, you can train the most basic RL algorithm ([Q-learning](https://gymnasium.farama.org/tutorials/training_agents/blackjack_tutorial/)) on a Cahoots game and experiment with different parameters such as amount of training, agent parameters, etc.
+This software lets you train an agent using [Q-learning](https://en.wikipedia.org/wiki/Q-learning) - one of the most basic RL algorithms - to play the Cahoots game and experiment with different parameters such as amount of training, agent parameters, etc.
 
 ![](output.gif)
 
 
 ## Quickstart
 
+Install the necessary dependencies:
 ```
 pip install -r requirements.txt
+```
+
+Start the training:
+```
 python3 train.py -h
 ```
 
 This will give you all the options of the training program.
 
-Note that you can also use the Gymnasium environment provided in your own projects. See [Implementation](#Implementation) section below.
+You can also use the Gymnasium environment provided in your own projects. See [Implementation](#Implementation) section below.
 
 **Note**: By default, training is done on exactly the same game instance (sequence of missions and cards) each time. This will overtrain the agent for exactly that specific instance of a game and not for generic game instances. Doing the latter (by specifying ``seed=0``) will probably result in ill performance as the state space is too big to learn the best strategy averaged over thousands of different game combinations.
 
@@ -72,7 +77,7 @@ The observation space is modelled as what a real player sees:
 
 with suitable identifiers if a (mission) card is not present.
 
-**Note**: the state does not contain the already played cards throughout the game (aka card counting), while this would definitely be something AI could benefit from! As a matter of fact, the rules of the game state that a player can - at any time - go over the stacks of played cards to determine which cards have been played.
+**Note**: the state does not contain the already played cards throughout the game (aka card counting), while this would definitely be something RL could benefit from! As a matter of fact, the rules of the game state that a player can - at any time - go over the stacks of played cards to determine which cards have been played.
 
 #### Action space
 
@@ -108,15 +113,15 @@ I ultimately decided on the following reward function:
 
 | File | Description |
 | ----- | ----------- |
-| agent | Implementation of Q-learning algorithm adapted from https://gymnasium.farama.org/tutorials/training_agents/blackjack_tutorial/ |
-| cahoots | The game logic of cahoots (can also be used for building a standalone game) |
-| cahootsenv | The actual Gymnasium compatible RL Environment which interfaces with the Cahoots class |
-| cards | Implements all the game cards |
-| colors | Helper class for defining colors |
-| missions | Implements all the mission cards |
-| play | Try cahoots on the commandline against a bot that only does random moves |
-| players | Helper class for players |
-| train | Main code for training the agent |
-| visuals | Pygame rendering for the game |
+| [agent](agent.py) | Implementation of Q-learning algorithm adapted from https://gymnasium.farama.org/tutorials/training_agents/blackjack_tutorial/ |
+| [cahoots](cahoots.py) | The game logic of Cahoots (can also be used for building a standalone game) |
+| [cahootsenv](cahootsenv.py) | The actual Gymnasium compatible RL Environment which interfaces with the Cahoots class |
+| [cards](cards.py) | Implements all the game cards |
+| [colors](colors.py) | Helper class for defining colors |
+| [missions](missions.py) | Implements all the mission cards |
+| [play](play.py) | Try cahoots on the commandline against a bot that only does random moves |
+| [players](players.py) | Helper class for players |
+| [train](train.py) | Main code for training the agent |
+| [visuals](visuals.py) | Pygame rendering for the game |
 
 
