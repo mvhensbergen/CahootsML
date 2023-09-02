@@ -1,9 +1,9 @@
 from cahoots import Game
-from players import Dummy, Player
+from players import Dummy, Player, MissionMinded
 
 players = [
-    Player("You"),
-    Dummy("Computer"),
+    MissionMinded("You"),
+    MissionMinded("Computer"),
 ]
 
 g = Game(players=players, number_of_missions=4)

@@ -186,7 +186,7 @@ class Game:
     def get_player_action(self):
         # Ask the Player class for an action
         player = self.get_current_player()
-        [src, dest] = player.get_move()
+        [src, dest] = player.get_move(self)
         return [src, dest]
 
     def visual_render(self):
