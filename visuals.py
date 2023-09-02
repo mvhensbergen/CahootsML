@@ -12,16 +12,20 @@ class Visuals:
     screen_height = 400
 
     def __init__(self, outdir):
-        # Initializes pygame
-        pygame.init()
-
         # A sequence number to label the screenshots
         self.p = 0
         self.outdir = outdir
+        self.pygame_inited = False
+
+    def initialize_pygame(self):
+        # Initializes pygame
+        pygame.init()
 
         self.screen = pygame.display.set_mode(
             (Visuals.screen_width, Visuals.screen_height)
         )
+
+        self.pygame_inited = True
 
     def render_missions(self, missions):
         # Renders all missions on the deck
@@ -88,7 +92,20 @@ class Visuals:
         img = font.render(desc, True, "black")
         self.screen.blit(img, (x + Visuals.card_width / 3, y + Visuals.card_height / 2))
 
-    def draw(self):
+    def draw(self, missions, table_cards, player_cards, description):
+        if not self.pygame_inited:
+            self.initialize_pygame()
+
+        self.screen.fill("white")
+        self.render_missions(missions)
+        for i, c in enumerate(table_cards):
+            self.render_deck_card(i, c.color, c.number)
+        for i, c in enumerate(player_cards):
+            if c:
+                self.render_player_card(i, c.color, c.number)
+
+        self.render_description(description)
+
         # Draw and screenshot
         pygame.display.flip()
         pygame.event.get()
@@ -97,6 +114,5 @@ class Visuals:
             pygame.image.save(
                 self.screen, os.path.join(self.outdir, f"screenshot-{self.p}.jpeg")
             )
-        self.screen.fill("white")
 
         self.p += 1

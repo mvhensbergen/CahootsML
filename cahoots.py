@@ -4,7 +4,7 @@ from visuals import Visuals
 
 
 class Game:
-    def __init__(self, players, number_of_missions, outdir):
+    def __init__(self, players, number_of_missions, outdir=None):
         self.players = players  # Array of the players
         self.allcards = []  # The closed card deck
         self.missions = []  # The current missions
@@ -18,8 +18,9 @@ class Game:
 
         self.id = 0
 
-        if outdir:
-            self.v = Visuals(outdir)
+        self.outdir = outdir
+
+        self.v = Visuals(outdir)
 
     def reset(self):
         # Reset players turns and flush the played card stacks
@@ -189,19 +190,17 @@ class Game:
         return [src, dest]
 
     def visual_render(self):
-        self.v.render_missions(self.missions)
-        for i, c in enumerate(self.table_cards):
-            self.v.render_deck_card(i, c.color, c.number)
-        for i, c in enumerate(self.get_current_player().cards):
-            if c:
-                self.v.render_player_card(i, c.color, c.number)
-
         description = (
             f"{self.get_current_player().player} - Ep: {self.id} - Cards left: {len(self.allcards)} "
             f"- Missions left:{len(self.get_remaining_missions())}"
         )
-        self.v.render_description(description)
-        self.v.draw()
+
+        self.v.draw(
+            self.missions,
+            self.table_cards,
+            self.get_current_player().cards,
+            description,
+        )
 
     def print(self, extended=True):
         self.visual_render()

@@ -6,7 +6,7 @@ players = [
     Dummy("Computer"),
 ]
 
-g = Game(players=players, number_of_missions=4, outdir=None)
+g = Game(players=players, number_of_missions=4)
 g.reset()
 
 g.finish_turn(first_time=True)

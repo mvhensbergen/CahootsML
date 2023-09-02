@@ -9,9 +9,9 @@ import gymnasium as gym
 REWARDS = {
     "INVALID_MOVE": -1,
     "VALID_MOVE": 0,
-    "MISSION_ACCOMPLISHED": 100,
-    "WON_GAME": 1000,
-    "LOST_GAME": -1000,
+    "MISSION_ACCOMPLISHED": 0,
+    "WON_GAME": 10,
+    "LOST_GAME": -10,
 }
 
 
